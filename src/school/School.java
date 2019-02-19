@@ -21,17 +21,20 @@ final class LocalSchool {
 
     void SimulateOneDay() {
 
-        classes.stream().forEach((item) -> {
-            System.out.println("Luokka");
-            item.browsePupils();
+        classes.stream().forEach((curClass) -> {
+           
+            curClass.SimulateOneDay();
           
         });
 
     }
 
     void createClasses() {
-        for (int i = 0; i < 6; i++) {
-            classes.add(new Schoolclass());
+        for (int i = 0; i < 5; i++) {
+          
+                   Schoolclass class1=new Schoolclass();
+                   class1.setClassName( Details.classNames[i] );
+                   classes.add(class1);
         }
     }
 
@@ -48,6 +51,7 @@ class County {
     public County() {
        
         school.createClasses();
+        school.SimulateOneDay();
     }
 }
 

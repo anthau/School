@@ -11,6 +11,12 @@ import java.util.ArrayList;
  *
  * @author antto
  */
+class Details  {
+    static public int id=0;
+     static public int classId2=0;
+     static public String[] classNames = {"1A", "1B", "2A", "2B","3A","3B"};
+}
+
 class Pupil {
 
      ArrayList<Boolean> notAtClass = new ArrayList<>();
@@ -18,8 +24,18 @@ class Pupil {
          //TODO CHECK, if he/she is at  class.
          
      }
+     void SimulateOneDay()   {
+         System.out.println("day1");
+       
+     }
     public Pupil() {
-      
+
+            this.id=Details.id;
+         
+        System.out.println("simulate pupil=" + id);
+                 Details.id++;
+       
+       
         int rand1 = (int) Math.round(100 * Math.random());
         
         
@@ -37,10 +53,10 @@ class Pupil {
                 typepupil=new PupilTypeC();
            
         }
-      
+    
     }
 
-    int id;
+    int id=0;
     pupilType typepupil = null;
 
     public int getId() {
@@ -50,5 +66,6 @@ class Pupil {
     public void setId(int id) {
         this.id = id;
     }
+
 
 }

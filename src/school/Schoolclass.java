@@ -6,25 +6,52 @@
 package school;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import java.util.Vector;
 
 /**
  *
  * @author antto
+ * 
+ * 
  */
+//Singleton
+
+
  class Schoolclass  {
 
     public Schoolclass() {
+        
+
          addPupils();
+         
     }
-    private String Name = "";
+    protected String className = "";
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public ArrayList<Pupil> getPupils() {
+        return pupils;
+    }
+
+    public void setPupils(ArrayList<Pupil> pupils) {
+        this.pupils = pupils;
+    }
 
     ArrayList<Pupil> pupils = new ArrayList<>();
-    public void browsePupils()  {
-        for(Pupil pupil :pupils)  {
-            System.out.println("Pupil" + pupil);
-        }
+    public void SimulateOneDay()  {
+      
+        
+        pupils.stream().forEach((pupil) -> {
+            pupil.SimulateOneDay();
+        });
         
     }
 
