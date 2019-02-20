@@ -9,14 +9,17 @@ package school;
  *
  * @author antto
  */
-public class PupilTypeC extends pupilType{
+public class PupilTypeC extends pupilType {
 
     @Override
-    public Boolean isAwayProb() {
-       
-        return true;
+    public Boolean isAwayProb(Boolean yesterdayAway, String weekday) {
+        int prob = (int) (100 * Math.random());
+        if (yesterdayAway == false) {
+            return prob > -1 && prob < 20;
+        } else {
+            return prob > -1 && prob < 40;
+        }
+
     }
 
-
-    
 }

@@ -5,6 +5,7 @@
  */
 package school;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -29,18 +30,42 @@ class Pupil {
 
     }
 
-    public void SimulateOneDay(String className, String dayOfWeekSchool) {
-        if (dayOfWeekSchool.equals("SUNDAY")==false && dayOfWeekSchool.equals("SATURDAY")==false) {
-            Boolean isAway = false;
+    public void SimulateOneDay(LocalDate curDate, String className, String dayOfWeekSchool) {
+
+        if (false == curDate.equals(LocalDate.of(2014, 12, 6)) && dayOfWeekSchool.equals("SUNDAY") == false && dayOfWeekSchool.equals("SATURDAY") == false) {
+            Boolean awayYesterday = false;
+            if (notAtClass.size() < 3) {
+                awayYesterday = false;
+            } else {
+                awayYesterday = notAtClass.get(notAtClass.size() - 2);
+                if (awayYesterday == null) {
+
+                    int cur = notAtClass.size() - 2;
+
+                    while (cur > -1 && notAtClass.get(cur) == null) {
+                        cur--;
+                    }
+                    if (cur > 0) {
+                        awayYesterday = notAtClass.get(cur);
+                    } else {
+                        awayYesterday = true;
+                    }
+                }
+
+            }
+
+            Boolean isAway = typepupil.isAwayProb(awayYesterday, curDate.getDayOfWeek().toString());
+
             int luku = (int) (2 * Math.random());
             if (luku == 0) {
                 isAway = true;
             }
             notAtClass.add(isAway);
-            System.out.println(className + "  Pupil=" + id + " day=" + Details.curDay + " " + notAtClass.size() + " " + isAway + " day=" + dayOfWeekSchool);
+            System.out.println(className + "  Pupil=" + id + " day=" + Details.curDay + " " + notAtClass.size() + " " + isAway + " day=" + curDate.toString());
+        } else {
+            System.out.println(className + "  Pupil=" + id + " freeday" + curDate.toString());
+            notAtClass.add(null);
         }
-        else
-            System.out.println(className + "  Pupil=" + id + " freeday" + dayOfWeekSchool);
     }
 
     public Pupil() {

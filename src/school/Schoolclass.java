@@ -5,6 +5,7 @@
  */
 package school;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -46,12 +47,12 @@ import java.util.Vector;
     }
 
     ArrayList<Pupil> pupils = new ArrayList<>();
-    public void SimulateOneDay(String dayOfWeekSchool)  {
+    public void SimulateOneDay(LocalDate curDate,String dayOfWeekSchool)  {
         
       
         
         pupils.stream().forEach((pupil) -> {
-            pupil.SimulateOneDay(className,dayOfWeekSchool);
+            pupil.SimulateOneDay(curDate,className,dayOfWeekSchool);
         });
         
     }

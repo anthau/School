@@ -12,10 +12,15 @@ package school;
 public class PupilTypeB extends pupilType {
 
     @Override
-    public Boolean isAwayProb() {
-         
-         return true;
+    public Boolean isAwayProb(Boolean yesterdayAway, String weekday) {
+        int prob = (int) (Math.random() * 100);
+        if (weekday.equals("MONDAY") || weekday.equals("FRIDAY")) {
+
+            return prob>-1 && prob<30;
+        }
+        else 
+               return prob>-1 && prob<10;
+      
     }
 
-    
 }

@@ -18,10 +18,10 @@ final class LocalSchool {
 
     ArrayList<Schoolclass> classes = new ArrayList<>();
 
-    void SimulateOneDay(String dayOfWeekSchool) {
+    void SimulateOneDay(LocalDate curDate,String dayOfWeekSchool) {
         Details.curDay++;
         classes.stream().forEach((curClass) -> {
-            curClass.SimulateOneDay(dayOfWeekSchool);
+            curClass.SimulateOneDay(curDate,dayOfWeekSchool);
         });
 
     }
@@ -53,9 +53,10 @@ class County {
         LocalDate SchoolEnd = LocalDate.of(2015, Month.MAY, 31);
 
         while(SchoolStart.isBefore(SchoolEnd) || SchoolStart.equals(SchoolEnd) ) {
-            SchoolStart = SchoolStart.plusDays(1);
+          
             String dayOfWeekSchool = SchoolStart.getDayOfWeek().toString();
-            school.SimulateOneDay(dayOfWeekSchool);
+            school.SimulateOneDay(SchoolStart,dayOfWeekSchool);
+              SchoolStart = SchoolStart.plusDays(1);
         }
         
 
