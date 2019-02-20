@@ -24,7 +24,7 @@ import java.util.Vector;
     public Schoolclass() {
         
 
-         addPupils();
+         
          
     }
     protected String className = "";
@@ -46,19 +46,21 @@ import java.util.Vector;
     }
 
     ArrayList<Pupil> pupils = new ArrayList<>();
-    public void SimulateOneDay()  {
+    public void SimulateOneDay(String dayOfWeekSchool)  {
+        
       
         
         pupils.stream().forEach((pupil) -> {
-            pupil.SimulateOneDay();
+            pupil.SimulateOneDay(className,dayOfWeekSchool);
         });
         
     }
 
-    private void addPupils() {
-
+    public void addPupils() {
         for (int i = 0; i < 20; i++) {
-            pupils.add(new Pupil());
+            Pupil pupil=new Pupil(); 
+            pupils.add(pupil);
+            
 
         }
     }

@@ -5,7 +5,6 @@
  */
 package school;
 
-import java.util.Date;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -13,28 +12,28 @@ import java.util.ArrayList;
 final class LocalSchool {
 
     public LocalSchool() {
-        createClasses(); 
-        SimulateOneDay();
+        createClasses();
+
     }
-    String name = "";
+
     ArrayList<Schoolclass> classes = new ArrayList<>();
 
-    void SimulateOneDay() {
-
+    void SimulateOneDay(String dayOfWeekSchool) {
+        Details.curDay++;
         classes.stream().forEach((curClass) -> {
-           
-            curClass.SimulateOneDay();
-          
+            curClass.SimulateOneDay(dayOfWeekSchool);
         });
 
     }
 
     void createClasses() {
-        for (int i = 0; i < 5; i++) {
-          
-                   Schoolclass class1=new Schoolclass();
-                   class1.setClassName( Details.classNames[i] );
-                   classes.add(class1);
+        for (int i = 0; i < 6; i++) {
+
+            Schoolclass class1 = new Schoolclass();
+            class1.setClassName(Details.classNames[i]);
+            class1.addPupils();
+
+            classes.add(class1);
         }
     }
 
@@ -49,9 +48,17 @@ class County {
     LocalSchool school = new LocalSchool();
 
     public County() {
-       
-        school.createClasses();
-        school.SimulateOneDay();
+
+        LocalDate SchoolStart = LocalDate.of(2014, Month.SEPTEMBER, 4);
+        LocalDate SchoolEnd = LocalDate.of(2015, Month.MAY, 31);
+
+        while(SchoolStart.isBefore(SchoolEnd) || SchoolStart.equals(SchoolEnd) ) {
+            SchoolStart = SchoolStart.plusDays(1);
+            String dayOfWeekSchool = SchoolStart.getDayOfWeek().toString();
+            school.SimulateOneDay(dayOfWeekSchool);
+        }
+        
+
     }
 }
 

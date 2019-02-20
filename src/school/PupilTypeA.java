@@ -12,8 +12,9 @@ package school;
 public class PupilTypeA extends pupilType{
    
     @Override
-    public void isAwayProb() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean isAwayProb() {
+
+         return true;
     }
     
 }

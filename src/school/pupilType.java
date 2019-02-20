@@ -13,5 +13,5 @@ abstract class pupilType {
     String weekDay="";
     Boolean yesterdayOut=false;
 
-    public abstract void isAwayProb(); // abstract method
+    public abstract Boolean isAwayProb(); // abstract method
 }
