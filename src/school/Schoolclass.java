@@ -5,11 +5,14 @@
  */
 package school;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,11 +44,15 @@ class Schoolclass {
         this.pupils = pupils;
     }
 
-    public void printAbsent() {
+    public void printAbsent(String schoolname) {
         System.out.println(className);
         pupils.stream().forEach((pupil) -> {
             
-            pupil.printAbsent();
+            try {
+                pupil.printAbsent(className,schoolname);
+            } catch (IOException ex) {
+                
+            }
         });
     }
 

@@ -12,9 +12,18 @@ import java.time.Month;
 import java.util.ArrayList;
 
 final class LocalSchool {
+   String schoolname="";
 
+    public String getSchoolname() {
+        return schoolname;
+    }
+
+    public void setSchoolname(String schoolname) {
+        this.schoolname = schoolname;
+    }
     public LocalSchool() {
         createClasses();
+        
 
     }
 
@@ -39,12 +48,12 @@ final class LocalSchool {
         }
     }
 
-    void printAbsent() {
+    void printAbsent(String schoolname) {
         System.out.println();
                 int luokka=0;
                 classes.stream().forEach((curClass) -> {
-                 System.out.println("----");
-                 curClass.printAbsent();
+
+                 curClass.printAbsent(schoolname);
                 
         });
 
@@ -61,10 +70,12 @@ class County {
     LocalSchool school = new LocalSchool();
 
     public County() throws IOException {
-          FileWriter myWriter = new FileWriter("absent.csv",true);
-          myWriter.append("Student;Date;\n");
+        try (FileWriter myWriter = new FileWriter("absent.csv",true)) {
+            myWriter.append("Student;CLASS;School;Date;Reason\n");
+        }
           
-                 
+          
+        school.setSchoolname("School1");
         LocalDate SchoolStart = LocalDate.of(2014, Month.SEPTEMBER, 4);
         LocalDate SchoolEnd = LocalDate.of(2015, Month.MAY, 31);
 
@@ -74,7 +85,7 @@ class County {
               SchoolStart = SchoolStart.plusDays(1);
         }
         
-       school.printAbsent();
+       school.printAbsent(school.getSchoolname());
         
 
     }

@@ -24,7 +24,6 @@ class Details {
     static public int classId2 = 0;
     static public String[] classNames = {"1A", "1B", "2A", "2B", "3A", "3B"};
     static public int curDay = 0;
-     
 
 }
 
@@ -136,22 +135,29 @@ class Pupil {
         this.id = id;
     }
 
-    void printAbsent() throws IOException {
+    void printAbsent(String className, String schoolname) throws IOException {
 
-        int count = 0;
-       FileWriter myWriter = new FileWriter("absent.csv",true);
-
-            
+        FileWriter myWriter = new FileWriter("absent.csv", true);
 
         for (Away away : notAtClass) {
             if (away.isAway != null && away.isAway == true) {
-                count++;
 
-                myWriter.append( id + ";"+away.getAwayDate() + "\n");
+                //Set Reason
+                int prob = (int) (Math.random() * 3);
+
+                String reason = "";
+                if (prob == 0) {
+                    reason = "SAIRAS";
+                } else if (prob == 1) {
+                    reason = "MUU";
+                } else if (prob == 2) {
+                    reason = "Luvaton";
+                }
+
+                myWriter.append(id + ";" + className + ";" + schoolname + ";" + away.getAwayDate() + ";" + reason + ";\n");
             }
         }
         myWriter.close();
-        System.out.println(id + " poissaoloja=" + count + "");
 
     }
 
