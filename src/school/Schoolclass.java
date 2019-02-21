@@ -14,19 +14,14 @@ import java.util.Vector;
 /**
  *
  * @author antto
- * 
- * 
+ *
+ *
  */
 //Singleton
-
-
- class Schoolclass  {
+class Schoolclass {
 
     public Schoolclass() {
-        
 
-         
-         
     }
     protected String className = "";
 
@@ -46,22 +41,28 @@ import java.util.Vector;
         this.pupils = pupils;
     }
 
-    ArrayList<Pupil> pupils = new ArrayList<>();
-    public void SimulateOneDay(LocalDate curDate,String dayOfWeekSchool)  {
-        
-      
-        
+    public void printAbsent() {
+        System.out.println(className);
         pupils.stream().forEach((pupil) -> {
-            pupil.SimulateOneDay(curDate,className,dayOfWeekSchool);
+            
+            pupil.printAbsent();
         });
-        
+    }
+
+    ArrayList<Pupil> pupils = new ArrayList<>();
+
+    public void SimulateOneDay(LocalDate curDate, String dayOfWeekSchool) {
+
+        pupils.stream().forEach((pupil) -> {
+            pupil.SimulateOneDay(curDate, className, dayOfWeekSchool);
+        });
+
     }
 
     public void addPupils() {
         for (int i = 0; i < 20; i++) {
-            Pupil pupil=new Pupil(); 
+            Pupil pupil = new Pupil();
             pupils.add(pupil);
-            
 
         }
     }

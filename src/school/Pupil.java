@@ -5,6 +5,12 @@
  */
 package school;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -18,12 +24,36 @@ class Details {
     static public int classId2 = 0;
     static public String[] classNames = {"1A", "1B", "2A", "2B", "3A", "3B"};
     static public int curDay = 0;
+     
+
+}
+
+class Away {
+
+    LocalDate awayDate;
+
+    public LocalDate getAwayDate() {
+        return awayDate;
+    }
+
+    public void setAwayDate(LocalDate awayDate) {
+        this.awayDate = awayDate;
+    }
+
+    public Boolean getIsAway() {
+        return isAway;
+    }
+
+    public void setIsAway(Boolean isAway) {
+        this.isAway = isAway;
+    }
+    Boolean isAway = null;
 
 }
 
 class Pupil {
 
-    ArrayList<Boolean> notAtClass = new ArrayList<>();
+    ArrayList<Away> notAtClass = new ArrayList<>();
 
     void addDay() {
         //TODO CHECK, if he/she is at  class.
@@ -37,34 +67,39 @@ class Pupil {
             if (notAtClass.size() < 3) {
                 awayYesterday = false;
             } else {
-                awayYesterday = notAtClass.get(notAtClass.size() - 2);
+
+                awayYesterday = notAtClass.get(notAtClass.size() - 2).getIsAway();
+
                 if (awayYesterday == null) {
 
                     int cur = notAtClass.size() - 2;
 
-                    while (cur > -1 && notAtClass.get(cur) == null) {
+                    while (cur > -1 && notAtClass.get(cur).getIsAway() == null) {
                         cur--;
                     }
                     if (cur > 0) {
-                        awayYesterday = notAtClass.get(cur);
+                        awayYesterday = notAtClass.get(cur).getIsAway();
                     } else {
                         awayYesterday = true;
                     }
+
                 }
 
             }
 
             Boolean isAway = typepupil.isAwayProb(awayYesterday, curDate.getDayOfWeek().toString());
 
-            int luku = (int) (2 * Math.random());
-            if (luku == 0) {
-                isAway = true;
-            }
-            notAtClass.add(isAway);
-            System.out.println(className + "  Pupil=" + id + " day=" + Details.curDay + " " + notAtClass.size() + " " + isAway + " day=" + curDate.toString());
+            Away away = new Away();
+            away.setIsAway(isAway);
+            away.setAwayDate(curDate);
+            notAtClass.add(away);
+
         } else {
-            System.out.println(className + "  Pupil=" + id + " freeday" + curDate.toString());
-            notAtClass.add(null);
+            Away away = new Away();
+            ;
+            away.setAwayDate(curDate);
+
+            notAtClass.add(away);
         }
     }
 
@@ -72,7 +107,6 @@ class Pupil {
 
         this.id = Details.id;
 
-        System.out.println("simulate pupil=" + id);
         Details.id++;
 
         int rand1 = (int) Math.round(100 * Math.random());
@@ -100,6 +134,25 @@ class Pupil {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    void printAbsent() throws IOException {
+
+        int count = 0;
+       FileWriter myWriter = new FileWriter("absent.csv",true);
+
+            
+
+        for (Away away : notAtClass) {
+            if (away.isAway != null && away.isAway == true) {
+                count++;
+
+                myWriter.append( id + ";"+away.getAwayDate() + "\n");
+            }
+        }
+        myWriter.close();
+        System.out.println(id + " poissaoloja=" + count + "");
+
     }
 
 }
