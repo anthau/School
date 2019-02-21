@@ -95,7 +95,7 @@ class Pupil {
 
         } else {
             Away away = new Away();
-            ;
+            
             away.setAwayDate(curDate);
 
             notAtClass.add(away);
@@ -137,27 +137,32 @@ class Pupil {
 
     void printAbsent(String className, String schoolname) throws IOException {
 
-        FileWriter myWriter = new FileWriter("absent.csv", true);
-
-        for (Away away : notAtClass) {
-            if (away.isAway != null && away.isAway == true) {
-
-                //Set Reason
-                int prob = (int) (Math.random() * 3);
-
-                String reason = "";
-                if (prob == 0) {
-                    reason = "SAIRAS";
-                } else if (prob == 1) {
-                    reason = "MUU";
-                } else if (prob == 2) {
-                    reason = "Luvaton";
+        try (FileWriter myWriter = new FileWriter("absent.csv", true)) {
+            for (Away away : notAtClass) {
+                if (away.isAway != null && away.isAway == true) {
+                    
+                    //Set Reason
+                    int prob = (int) (Math.random() * 3);
+                    
+                    String reason = "";
+                    switch (prob) {
+                        case 0:
+                            reason = "SAIRAS";
+                            break;
+                        case 1:
+                            reason = "MUU";
+                            break;
+                        case 2:
+                            reason = "Luvaton";
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    myWriter.append(id + ";" + className + ";" + schoolname + ";" + away.getAwayDate() + ";" + reason + ";\n");
                 }
-
-                myWriter.append(id + ";" + className + ";" + schoolname + ";" + away.getAwayDate() + ";" + reason + ";\n");
             }
         }
-        myWriter.close();
 
     }
 

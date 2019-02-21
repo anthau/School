@@ -45,7 +45,7 @@ class Schoolclass {
     }
 
     public void printAbsent(String schoolname) {
-        System.out.println(className);
+      
         pupils.stream().forEach((pupil) -> {
             
             try {
