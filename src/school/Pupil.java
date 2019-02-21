@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +25,8 @@ class Details {
     static public int classId2 = 0;
     static public String[] classNames = {"1A", "1B", "2A", "2B", "3A", "3B"};
     static public int curDay = 0;
+    static public LocalDate startDay= LocalDate.of(2014, Month.SEPTEMBER, 4);
+    
 
 }
 
@@ -58,10 +61,22 @@ class Pupil {
         //TODO CHECK, if he/she is at  class.
 
     }
+    Boolean isHoliday(LocalDate curDate)  {
+         LocalDate xmasHoliday=LocalDate.of(2017, Month.DECEMBER, 22);
+         LocalDate xmasHolidayEnd=LocalDate.of(2018, Month.JANUARY, 3);
+         
+         LocalDate easterHoliday=LocalDate.of(2018, Month.MARCH, 29);
+         LocalDate easterHolidayEnd=LocalDate.of(2018, Month.APRIL, 3);
+         
+         Boolean isHoliday= (curDate.isAfter(xmasHoliday.minusDays(1))  && curDate.isBefore(xmasHolidayEnd.plusDays(1))
+                 || curDate.isAfter(easterHoliday)  && curDate.isBefore(easterHolidayEnd) );
+
+         return isHoliday;
+    }
 
     public void SimulateOneDay(LocalDate curDate, String className, String dayOfWeekSchool) {
 
-        if (false == curDate.equals(LocalDate.of(2014, 12, 6)) && dayOfWeekSchool.equals("SUNDAY") == false && dayOfWeekSchool.equals("SATURDAY") == false) {
+        if ( isHoliday(curDate)==false  && false == curDate.equals(LocalDate.of(2014, 12, 6)) && dayOfWeekSchool.equals("SUNDAY") == false && dayOfWeekSchool.equals("SATURDAY") == false) {
             Boolean awayYesterday = false;
             if (notAtClass.size() < 3) {
                 awayYesterday = false;

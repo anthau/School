@@ -5,6 +5,7 @@
  */
 package school;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -50,8 +51,7 @@ final class LocalSchool {
     }
 
     void printAbsent(String schoolname) {
-        System.out.println();
-        int luokka = 0;
+
         classes.stream().forEach((curClass) -> {
 
             curClass.printAbsent(schoolname);
@@ -71,10 +71,16 @@ class County {
     ArrayList<LocalSchool> schools = new ArrayList<>();
 
     public County() throws IOException {
-
-        try (FileWriter myWriter = new FileWriter("absent.csv", true)) {
+        
+        //destroys if file exists 
+        File file = new File("absent.csv");
+        if (file.exists()) {
+            file.delete();
+        }
+        try (FileWriter myWriter = new FileWriter("absent.csv")) {
             myWriter.append("Student;CLASS;School;Date;Reason\n");
         }
+        
         LocalSchool school = new LocalSchool();
         school.setSchoolname("School 1");
         schools.add(school);
@@ -82,37 +88,36 @@ class County {
         school1.setSchoolname("School 2");
         schools.add(school1);
 
-        LocalDate SchoolStart = LocalDate.of(2014, Month.SEPTEMBER, 4);
-        LocalDate SchoolEnd = LocalDate.of(2015, Month.MAY, 31);
+        LocalDate SchoolStart = Details.startDay;
+        LocalDate SchoolEnd = LocalDate.of(2018, Month.MAY, 31);
 
         while (SchoolStart.isBefore(SchoolEnd) || SchoolStart.equals(SchoolEnd)) {
 
             for (LocalSchool _school : schools) {
                 String dayOfWeekSchool = SchoolStart.getDayOfWeek().toString();
                 _school.SimulateOneDay(SchoolStart, dayOfWeekSchool);
-           
+
             }
-            
+
             SchoolStart = SchoolStart.plusDays(1);
 
         }
 
         schools.stream().forEach((_item) -> {
             _item.printAbsent(_item.getSchoolname());
-                 System.out.println(_item.schoolname);
+
         });
-  
 
     }
 }
 
 public class School {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws IOException {
+        
+        //Init county
         new County();
+        System.out.println("Simulointi valmis");
     }
 
 }
