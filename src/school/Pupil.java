@@ -10,21 +10,6 @@ import java.time.Month;
 import java.util.ArrayList;
 
 
-
-/*
-Singleton, which contains certain universal data
-*/
-class Details {
-
-    static public int id = 0;
-    static public int classId2 = 0;
-    static public String[] classNames = {"1A", "1B", "2A", "2B", "3A", "3B"};
-    static public int curDay = 0;
-    static public LocalDate startDay= LocalDate.of(2014, Month.SEPTEMBER, 4);
-    
-
-}
-
 class Away {
 
     LocalDate awayDate;
@@ -50,10 +35,11 @@ class Away {
 class Pupil {
 
     ArrayList<Away> notAtClass = new ArrayList<>();
-
     void addDay() {
    
     }
+    
+    //Checks if it is a holiday, when you don't count awaydata
     Boolean isHoliday(LocalDate curDate)  {
         
          LocalDate xmasHoliday=LocalDate.of(2017, Month.DECEMBER, 22);
@@ -70,25 +56,29 @@ class Pupil {
          return isHoliday;
     }
 
-    public void SimulateOneDay(LocalDate curDate, String className, String dayOfWeekSchool) {
+    public void SimulateOneDay(LocalDate curDate, 
+            String className, String dayOfWeekSchool) {
 
         if ( isHoliday(curDate)==false 
                 && false == curDate.equals(LocalDate.of(2014, 12, 6))
                 && dayOfWeekSchool.equals("SUNDAY") == false
                 && dayOfWeekSchool.equals("SATURDAY") == false) {
            
-            Boolean awayYesterday = false;
+            Boolean awayYesterday=false;
+     
             if (notAtClass.size() < 3) {
                 awayYesterday = false;
             } else {
 
-                awayYesterday = notAtClass.get(notAtClass.size() - 2).getIsAway();
+                awayYesterday =
+                        notAtClass.get(notAtClass.size() - 2).getIsAway();
 
                 if (awayYesterday == null) {
 
                     int cur = notAtClass.size() - 2;
 
-                    while (cur > -1 && notAtClass.get(cur).getIsAway() == null) {
+                    while (cur > -1 &&
+                            notAtClass.get(cur).getIsAway() == null) {
                         cur--;
                     }
                     if (cur > 0) {
@@ -101,7 +91,8 @@ class Pupil {
 
             }
 
-            Boolean isAway = typepupil.isAwayProb(awayYesterday, curDate.getDayOfWeek().toString());
+            Boolean isAway = typepupil.isAwayProb(awayYesterday,
+                    curDate.getDayOfWeek().toString());
 
             Away away = new Away();
             away.setIsAway(isAway);
@@ -174,7 +165,10 @@ class Pupil {
                             break;
                     }
                     
-                    myWriter.append(id + ";" + className + ";" + schoolname + ";" + away.getAwayDate() + ";" + reason + ";\n");
+                    //Writes data to csv
+                    myWriter.append(id + ";" + className + ";" 
+                            + schoolname + ";" + away.getAwayDate()
+                            + ";" + reason + ";\n");
                 }
             }
         }
