@@ -1,24 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+@author Antto Hautamäki
  */
 package school;
 
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 
-/**
- *
- * @author antto
- */
+
+
+/*
+Singleton, which contains certain universal data
+*/
 class Details {
 
     static public int id = 0;
@@ -33,7 +28,6 @@ class Details {
 class Away {
 
     LocalDate awayDate;
-
     public LocalDate getAwayDate() {
         return awayDate;
     }
@@ -58,25 +52,31 @@ class Pupil {
     ArrayList<Away> notAtClass = new ArrayList<>();
 
     void addDay() {
-        //TODO CHECK, if he/she is at  class.
-
+   
     }
     Boolean isHoliday(LocalDate curDate)  {
+        
          LocalDate xmasHoliday=LocalDate.of(2017, Month.DECEMBER, 22);
          LocalDate xmasHolidayEnd=LocalDate.of(2018, Month.JANUARY, 3);
          
          LocalDate easterHoliday=LocalDate.of(2018, Month.MARCH, 29);
          LocalDate easterHolidayEnd=LocalDate.of(2018, Month.APRIL, 3);
          
-         Boolean isHoliday= (curDate.isAfter(xmasHoliday.minusDays(1))  && curDate.isBefore(xmasHolidayEnd.plusDays(1))
-                 || curDate.isAfter(easterHoliday)  && curDate.isBefore(easterHolidayEnd) );
+         Boolean isHoliday= (curDate.isAfter(xmasHoliday.minusDays(1))
+                 && curDate.isBefore(xmasHolidayEnd.plusDays(1))
+                 || curDate.isAfter(easterHoliday)  
+                 && curDate.isBefore(easterHolidayEnd) );
 
          return isHoliday;
     }
 
     public void SimulateOneDay(LocalDate curDate, String className, String dayOfWeekSchool) {
 
-        if ( isHoliday(curDate)==false  && false == curDate.equals(LocalDate.of(2014, 12, 6)) && dayOfWeekSchool.equals("SUNDAY") == false && dayOfWeekSchool.equals("SATURDAY") == false) {
+        if ( isHoliday(curDate)==false 
+                && false == curDate.equals(LocalDate.of(2014, 12, 6))
+                && dayOfWeekSchool.equals("SUNDAY") == false
+                && dayOfWeekSchool.equals("SATURDAY") == false) {
+           
             Boolean awayYesterday = false;
             if (notAtClass.size() < 3) {
                 awayYesterday = false;
@@ -149,7 +149,7 @@ class Pupil {
     public void setId(int id) {
         this.id = id;
     }
-
+/*If Pupil away, then add the reason */
     void printAbsent(String className, String schoolname) throws IOException {
 
         try (FileWriter myWriter = new FileWriter("absent.csv", true)) {

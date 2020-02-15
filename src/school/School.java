@@ -64,7 +64,8 @@ final class LocalSchool {
 
 /**
  *
- * @author antto
+ * The result is printed  to absent.csv, which is located in the root directory
+ * after program is stopped
  */
 class County {
 

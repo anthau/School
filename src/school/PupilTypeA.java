@@ -7,8 +7,10 @@ package school;
 
 /**
  *
- * @author antto
+ * @author Antto Hautamäki
  */
+
+
 public class PupilTypeA extends pupilType {
 
     @Override
