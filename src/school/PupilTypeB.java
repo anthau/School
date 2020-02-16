@@ -7,7 +7,7 @@ package school;
 
 /**
  *
- * @author antto
+ * author antto Hautamäki
  */
 public class PupilTypeB extends pupilType {
 

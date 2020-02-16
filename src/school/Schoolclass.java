@@ -53,7 +53,7 @@ class Schoolclass {
     }
 
     ArrayList<Pupil> pupils = new ArrayList<>();
-
+    //This simulates always one day ahead.
     public void SimulateOneDay(LocalDate curDate, String dayOfWeekSchool) {
 
         pupils.stream().forEach((pupil) -> {
@@ -62,8 +62,9 @@ class Schoolclass {
 
     }
 
+    
     public void addPupils() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < Details.classSize; i++) {
             Pupil pupil = new Pupil();
             pupils.add(pupil);
 

@@ -4,14 +4,12 @@
  */
 package school;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
 
-
+/*
+*The main module of application
+*author Antto Hautamäki
+*/
 
 public class School {
 
